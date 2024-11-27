@@ -1,0 +1,40 @@
+body {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    text-align: center;
+    background-color: #e0f7fa;
+    color: #00796b;
+}
+.tamagotchi {
+    margin-top: 50px;
+    display: inline-block;
+    padding: 20px;
+    border: 2px solid #00796b;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.controls {
+    margin-top: 20px;
+}
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #00796b;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: #004d40;
+}
+#status {
+    font-weight: bold;
+    margin-top: 10px;
+}
+#stats {
+    margin-top: 10px;
+    font-size: 18px;
+}
