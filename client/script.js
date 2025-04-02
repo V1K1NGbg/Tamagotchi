@@ -1,6 +1,13 @@
+let food = 0;
+let happiness = 0;
+let energy = 0;
+let currentUser = null;
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('loginForm');
     const messageDiv = document.getElementById('message');
+    const statsElement = document.getElementById("stats");
+    updateStats();
 
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -21,6 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.status === 200) {
                 messageDiv.textContent = 'Authentication successful!';
+                
+                currentUser = username;
+                
+                if (result.tamagotchi) {
+                    food = result.tamagotchi.food;
+                    happiness = result.tamagotchi.happiness;
+                    energy = result.tamagotchi.energy;
+                    updateStats();
+                }
+                
+                form.style.display = 'none';
             } else {
                 messageDiv.textContent = 'Authentication failed. Please try again.';
             }
@@ -31,29 +49,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Tamagotchi game logic
+async function saveToServer() {
+    if (!currentUser) return;
 
-let food = 5;
-let happiness = 5;
-let energy = 5;
-
-function saveToLocalStorage() {
     const tamagotchiData = {
         food: food,
         happiness: happiness,
         energy: energy,
     };
-    localStorage.setItem("tamagotchiData", JSON.stringify(tamagotchiData));
-}
 
-function loadFromLocalStorage() {
-    const savedData = localStorage.getItem("tamagotchiData");
-    if (savedData) {
-        const tamagotchiData = JSON.parse(savedData);
-        food = tamagotchiData.food;
-        happiness = tamagotchiData.happiness;
-        energy = tamagotchiData.energy;
-        updateStats();
+    try {
+        const response = await fetch('/api/save-tamagotchi', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: currentUser,
+                tamagotchi: tamagotchiData
+            }),
+        });
+
+        const result = await response.json();
+        console.log(result.message);
+    } catch (error) {
+        console.error('Error saving to server:', error);
     }
 }
 
@@ -61,7 +81,9 @@ function updateStats() {
     document.getElementById(
         "stats"
     ).innerText = `Food: ${food}, Happiness: ${happiness}, Energy: ${energy}`;
-    saveToLocalStorage();
+    if (currentUser) {
+        saveToServer();
+    };
 }
 
 function feed() {
@@ -84,9 +106,3 @@ function sleep() {
     updateStats();
     document.getElementById("status").innerText = "Status: Sleeping";
 }
-
-document.addEventListener("DOMContentLoaded", (event) => {
-    const statsElement = document.getElementById("stats");
-    loadFromLocalStorage();
-    updateStats();
-});
