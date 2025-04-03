@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "username": "user1",
+      "password": "pass1",
+      "tamagotchi": {
+        "food": 5,
+        "happiness": 5,
+        "energy": 5
+      }
+    },
+    {
+      "username": "user2",
+      "password": "pass2",
+      "tamagotchi": {
+        "food": 5,
+        "happiness": 5,
+        "energy": 5
+      }
+    }
+  ]
+}

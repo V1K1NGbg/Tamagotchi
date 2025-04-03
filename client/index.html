@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>My Tamagotchi</h1>
+    <img id="tamagotchi-image" src="imgs/fox.png" width="300" height="320" alt="Tamagotchi" />
+    <p id="status">Status: Happy</p>
+    <p id="stats">Food: , Happiness: , Energy:</p>
+    </div>
+    <div class="controls">
+        <button onclick="feed()">Feed</button>
+        <button onclick="play()">Play</button>
+        <button onclick="sleep()">Sleep</button>
+    </div>
+    <div class="container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+        <h1><div id="message"></div></h1>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
